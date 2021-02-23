@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>showmagic</title>
+    <style>
+      body {
+        background-color: green;
+      }
+      img {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="instruction">
+    </div>
+
+    <div id="form">
+      <input id="form-files"   type="file" accept=".jpg, .jpeg, .png" multiple>
+      <input id="form-number" type="number">
+      <input id="form-button" type="button">
+    </div>
+
+    <div id="view">
+      <img id="view-img" src="">
+    </div>
+  </body>
+  <script>
+
+    //input
+    var files  = document.querySelector('#form-files'),
+        button = document.querySelector('#form-button'),
+        number = document.querySelector('#form-number'),
+        image  = document.querySelector('#view-img');
+
+    //listen url
+    var files_array_urls = [];
+    files.addEventListener('change', (event) => {
+      let files_array = event.target.files;
+      for (let i = 0; i < files_array.length; i++) {
+          files_array_urls.push(window.URL.createObjectURL(files_array[i]));
+      }
+    });
+
+    //enter $ running time
+    var time, time_length;
+    button.addEventListener('click', (event) => {
+      openFullscreen();
+      if (!number.value) time_length = 3000;
+      else time_length = number.value * 1000;
+      time = window.setInterval(foo, time_length);
+    });
+
+    function foo()
+    {
+      image.src = files_array_urls[0];
+      image.style.opacity = 1;
+      image.style.zIndex = 1;
+      files_array_urls.unshift(files_array_urls.pop());
+    }
+
+    function openFullscreen() {
+      if (image.requestFullscreen) {
+        image.requestFullscreen();
+      } else if (image.webkitRequestFullscreen) {
+        image.webkitRequestFullscreen();
+      } else if (image.msRequestFullscreen) {
+        image.msRequestFullscreen();
+      } else if (image.mozRequestFullscreen) {
+        image.mozRequestFullscreen();
+      }
+    }
+
+
+
+    //pause continue
+    var check = false;
+    image.addEventListener("click", (event) => {
+      if (check === false) {
+        window.clearInterval(time);
+        check = true;
+      } else {
+        window.clearInterval(time);
+        time = window.setInterval(foo, time_length);
+        check = false;
+      }
+    });
+    image.addEventListener("touch", (event) => {
+      if (check === false) {
+        window.clearInterval(time);
+        check = true;
+      } else {
+        window.clearInterval(time);
+        time = window.setInterval(foo, time_length);
+        check = false;
+      }
+    });
+
+    //escape
+    window.addEventListener("keydown", (event) => {
+      if (event.keyCode === 27) {
+        closeFullscreen();
+        window.clearInterval(time);
+        image.style.display = "none";
+        image.src = "";
+      }
+    });
+
+    function closeFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitCancelFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      } else if (document.mozCancelFullscreen) { /* Firefox */
+        document.mozExitFullscreen();
+      }
+    }
+
+
+
+
+
+
+  </script>
+
+</html>
