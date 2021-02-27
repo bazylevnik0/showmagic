@@ -10,7 +10,6 @@
       img {
         width: 100vw;
         height: 100vh;
-        object-fit: cover;
         opacity: 0;
         z-index: -1;
         position: absolute;
@@ -25,6 +24,18 @@
 
     <div id="form">
       <input id="form-files"   type="file" accept=".jpg, .jpeg, .png" multiple>
+      <form>
+        <div>
+          <input type="radio" id="contain" name="choice" value="contain">
+          <label for="contain"> contain </label>
+        </div>
+        <div>
+          <input type="radio" id="cover" name="choice" value="cover">
+          <label for="cover"> cover </label>
+        </div>
+
+      </form>
+
       <input id="form-number" type="number">
       <input id="form-button" type="button">
     </div>
@@ -35,10 +46,12 @@
   </body>
   <script>
 
-    //input
+    //dom querys
     var files  = document.querySelector('#form-files'),
-        button = document.querySelector('#form-button'),
+        contain = document.querySelector('#contain'),
+        cover = document.querySelector('#cover'),
         number = document.querySelector('#form-number'),
+        button = document.querySelector('#form-button'),
         image  = document.querySelector('#view-img');
 
     //listen url
@@ -50,13 +63,16 @@
       }
     });
 
-    //enter $ running time
+    //enter & running time & choice analysis
     var time, time_length;
     button.addEventListener('click', (event) => {
+      if (files_array_urls.length === 0) return;
       openFullscreen();
       if (!number.value) time_length = 3000;
       else time_length = number.value * 1000;
       time = window.setInterval(foo, time_length);
+      if (contain.checked) image.style.objectFit = "contain";
+      if (cover.checked) image.style.objectFit = "cover";
     });
 
     function foo()
@@ -109,7 +125,8 @@
       if (event.keyCode === 27) {
         closeFullscreen();
         window.clearInterval(time);
-        image.style.display = "none";
+        image.style.opacity = 0;
+        image.style.zIndex = -1;
         image.src = "";
       }
     });
