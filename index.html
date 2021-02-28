@@ -5,6 +5,7 @@
     <title>showmagic</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       /*font-family: 'Montserrat', sans-serif;*/
       body {
@@ -21,10 +22,19 @@
         background: rgb(245,134,52);
         background: linear-gradient(180deg, rgba(245,134,52,1) 30%, rgba(0,121,101,1) 30%);
       }
-      
+
       #thanksforicons {
         width: 300px;
         margin: 0 auto;
+        position: relative;
+        text-align: center;
+      }
+
+      hr {
+        margin: 0;
+        position: relative;
+        bottom: 12px;
+        margin-bottom: 5px;
       }
 
       img#view-img {
@@ -146,6 +156,11 @@
         background-size: 50px 50px;
       }
 
+      #cover-div label {
+        position: relative;
+        left: 9px;
+      }
+
       /*form number*/
       #form-number-div {
         width: 50px;
@@ -153,6 +168,7 @@
         display: inline-block;
         position: relative;
         bottom: 28px;
+        left: 25px;
       }
 
       #form-number {
@@ -164,6 +180,7 @@
         font-family: 'Montserrat', sans-serif;
         font-weight: 300;
         font-size: 15px;
+        text-align: center;
       }
 
       #form-number:focus {
@@ -176,6 +193,7 @@
         font-size: 15px;
         position: relative;
         top: 2.5px;
+        left: 10px;
       }
 
       /*title & button*/
@@ -240,8 +258,10 @@
       <div id="title">showmagic</div>
       <input id="form-button" type="button" value="start">
     </div>
-    <div id="thanksforicons>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-      
+
+
+   <div id="thanksforicons">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
     <div id="view">
       <img id="view-img" src="">
     </div>
