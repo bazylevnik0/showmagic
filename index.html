@@ -356,6 +356,17 @@
       }
     });
 
+    document.addEventListener("fullscreenchange", (event) => {
+      if (document.fullscreenElement) {}
+      else {
+        window.clearInterval(time);
+        image.style.opacity = 0;
+        image.style.zIndex = -1;
+        image.src = "";
+      }
+    });
+
+
     function closeFullscreen() {
       if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -367,11 +378,6 @@
         document.mozExitFullscreen();
       }
     }
-
-
-
-
-
 
   </script>
 
